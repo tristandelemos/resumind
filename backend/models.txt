@@ -1,0 +1,56 @@
+python backend models mockup
+
+# User
+id: UUID
+name: str
+email: str
+hashed_password: str
+created_at: datetime
+
+# Company
+id: UUID
+name: str
+location: str (optional)
+industry: str (optional)
+
+# JobApplication
+id: UUID
+user_id: FK -> User
+company_id: FK -> Company
+title: str
+job_description: text
+status: enum('interested', 'applied', 'interview', 'offer', 'rejected')
+link: str
+applied_date: date
+resume_id: FK -> Resume (nullable)
+cover_letter_id: FK -> CoverLetter (nullable)
+
+# Resume
+id: UUID
+user_id: FK -> User
+job_application_id: FK -> JobApplication (nullable)
+file_url: str (or blob)
+created_at: datetime
+ai_generated: bool
+
+# CoverLetter
+id: UUID
+user_id: FK -> User
+job_application_id: FK -> JobApplication (nullable)
+file_url: str (or blob)
+created_at: datetime
+ai_generated: bool
+
+# Note
+id: UUID
+job_application_id: FK -> JobApplication
+content: text
+created_at: datetime
+
+# Task
+id: UUID
+job_application_id: FK -> JobApplication
+title: str
+completed: bool
+due_date: date
+created_at: datetime
